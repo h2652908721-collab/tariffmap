@@ -1,0 +1,5 @@
+﻿User-agent: *
+Allow: /
+Disallow: /thank-you.html
+
+Sitemap: https://h2652908721-collab.github.io/tariffmap/sitemap.xml
