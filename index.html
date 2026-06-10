@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TariffMap — Find the Right HS Code & Tariff Rate, Instantly</title>
+  <meta name="description" content="Stop guessing HS codes. TariffMap's 2025 Reference Guide covers 10 major import/export categories with tariff rates for Australia, USA, and China — plus real misclassification case studies.">
+  <meta property="og:title" content="TariffMap — HS Code & Tariff Reference Guide 2025">
+  <meta property="og:description" content="Stop paying wrong tariff rates. Get the 2025 import/export reference guide: 10 categories, 3 markets (AU/US/CN), misclassification cases, compliance notes.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:wght@500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:       #060d18;
+      --bg-2:     #0b1628;
+      --bg-3:     #10203a;
+      --bg-4:     #152c50;
+      --ink:      #e2eaf4;
+      --ink-2:    #8aa4c0;
+      --ink-3:    #4d6880;
+      --gold:     #f59e0b;
+      --gold-2:   #fbbf24;
+      --gold-dim: rgba(245,158,11,0.15);
+      --gold-border: rgba(245,158,11,0.3);
+      --blue:     #3b82f6;
+      --blue-2:   #60a5fa;
+      --blue-dim: rgba(59,130,246,0.12);
+      --teal:     #14b8a6;
+      --teal-dim: rgba(20,184,166,0.12);
+      --red:      #ef4444;
+      --border:   rgba(255,255,255,0.07);
+      --border-2: rgba(255,255,255,0.12);
+      --r:        8px;
+      --r-lg:     14px;
+      --r-xl:     20px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      font-size: 16px;
+      line-height: 1.65;
+      color: var(--ink);
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ─────────────────────────────────── */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      padding: 0 40px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: background 0.3s, backdrop-filter 0.3s;
+    }
+    nav.scrolled {
+      background: rgba(6,13,24,0.85);
+      backdrop-filter: blur(18px) saturate(1.4);
+      border-bottom: 1px solid var(--border);
+    }
+    .nav-logo {
+      font-family: 'Space Grotesk', sans-serif;
+      font-weight: 700;
+      font-size: 20px;
+      color: var(--gold-2);
+      text-decoration: none;
+      letter-spacing: -0.3px;
+    }
+    .nav-logo span { color: var(--ink-2); font-weight: 400; }
+    .nav-cta {
+      background: var(--gold);
+      color: #060d18;
+      font-weight: 600;
+      font-size: 14px;
+      padding: 9px 20px;
+      border-radius: var(--r);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .nav-cta:hover { background: var(--gold-2); transform: translateY(-1px); }
+
+    /* ── HERO ────────────────────────────────── */
+    .hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center;
+      padding: 120px 24px 80px;
+      position: relative;
+      overflow: hidden;
+    }
+    .hero::before {
+      content: '';
+      position: absolute;
+      top: -120px; left: 50%;
+      transform: translateX(-50%);
+      width: 700px; height: 700px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(245,158,11,0.07) 0%, transparent 65%);
+      pointer-events: none;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--gold-dim);
+      border: 1px solid var(--gold-border);
+      color: var(--gold-2);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 7px 16px;
+      border-radius: 100px;
+      margin-bottom: 32px;
+    }
+    .hero-badge::before { content: '●'; font-size: 8px; }
+    .hero h1 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(2.6rem, 5.5vw, 5rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -1.5px;
+      color: var(--ink);
+      max-width: 800px;
+      margin-bottom: 24px;
+    }
+    .hero h1 em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--gold) 0%, var(--gold-2) 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-sub {
+      font-size: clamp(1rem, 1.8vw, 1.2rem);
+      color: var(--ink-2);
+      max-width: 540px;
+      margin-bottom: 48px;
+      line-height: 1.7;
+    }
+    .hero-cta-group {
+      display: flex;
+      gap: 14px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .btn-primary {
+      background: var(--gold);
+      color: #060d18;
+      font-weight: 700;
+      font-size: 15px;
+      padding: 14px 32px;
+      border-radius: var(--r);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .btn-primary:hover {
+      background: var(--gold-2);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 28px rgba(245,158,11,0.3);
+    }
+    .btn-ghost {
+      background: transparent;
+      color: var(--ink-2);
+      font-weight: 500;
+      font-size: 15px;
+      padding: 14px 24px;
+      border-radius: var(--r);
+      border: 1px solid var(--border-2);
+      text-decoration: none;
+      transition: color 0.2s, border-color 0.2s;
+    }
+    .btn-ghost:hover { color: var(--ink); border-color: var(--ink-3); }
+    .hero-proof {
+      margin-top: 48px;
+      display: flex;
+      gap: 32px;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+    .hero-proof-item {
+      font-size: 13px;
+      color: var(--ink-3);
+      display: flex;
+      align-items: center;
+      gap: 7px;
+    }
+    .hero-proof-item::before { content: '✓'; color: var(--teal); font-weight: 700; }
+
+    /* ── PAIN POINTS ─────────────────────────── */
+    .pain {
+      padding: 80px 24px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .section-inner { max-width: 1000px; margin: 0 auto; }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+      text-align: center;
+    }
+    .pain h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      margin-bottom: 56px;
+      color: var(--ink);
+    }
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+    }
+    .pain-card {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+      padding: 32px 28px;
+      transition: border-color 0.2s;
+    }
+    .pain-card:hover { border-color: var(--border-2); }
+    .pain-icon {
+      width: 44px; height: 44px;
+      border-radius: var(--r);
+      display: flex; align-items: center; justify-content: center;
+      font-size: 20px;
+      margin-bottom: 18px;
+    }
+    .pain-icon.red { background: rgba(239,68,68,0.12); }
+    .pain-icon.amber { background: rgba(245,158,11,0.12); }
+    .pain-icon.blue { background: var(--blue-dim); }
+    .pain-card h3 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .pain-card p {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.7;
+    }
+
+    /* ── PREVIEW ─────────────────────────────── */
+    .preview {
+      padding: 90px 24px;
+    }
+    .preview h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.7rem, 3vw, 2.4rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      margin-bottom: 12px;
+      color: var(--ink);
+    }
+    .preview-sub {
+      text-align: center;
+      color: var(--ink-2);
+      font-size: 15px;
+      margin-bottom: 56px;
+    }
+    .preview-window {
+      background: var(--bg-2);
+      border: 1px solid var(--border-2);
+      border-radius: var(--r-xl);
+      overflow: hidden;
+      max-width: 860px;
+      margin: 0 auto;
+      box-shadow: 0 24px 80px rgba(0,0,0,0.4), 0 0 0 1px rgba(255,255,255,0.04);
+    }
+    .preview-chrome {
+      background: var(--bg-3);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+    .preview-dots { display: flex; gap: 7px; }
+    .preview-dots span {
+      width: 12px; height: 12px;
+      border-radius: 50%;
+    }
+    .preview-dots span:nth-child(1) { background: #ff5f57; }
+    .preview-dots span:nth-child(2) { background: #febc2e; }
+    .preview-dots span:nth-child(3) { background: #28c840; }
+    .preview-title-bar {
+      flex: 1;
+      background: var(--bg-4);
+      border-radius: 6px;
+      padding: 7px 14px;
+      font-size: 12px;
+      color: var(--ink-3);
+      font-family: 'JetBrains Mono', monospace;
+    }
+    .preview-body {
+      padding: 32px;
+    }
+    .preview-header-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      margin-bottom: 24px;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .preview-doc-title {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--gold-2);
+    }
+    .preview-doc-sub { font-size: 12px; color: var(--ink-3); margin-top: 3px; }
+    .preview-badges { display: flex; gap: 8px; flex-wrap: wrap; }
+    .preview-badge {
+      font-size: 11px;
+      font-weight: 600;
+      padding: 4px 10px;
+      border-radius: 100px;
+      border: 1px solid;
+    }
+    .preview-badge.pdf { border-color: var(--gold-border); color: var(--gold-2); background: var(--gold-dim); }
+    .preview-badge.year { border-color: rgba(59,130,246,0.3); color: var(--blue-2); background: var(--blue-dim); }
+    .preview-badge.mkts { border-color: rgba(20,184,166,0.3); color: var(--teal); background: var(--teal-dim); }
+    /* Mini table preview */
+    .preview-table-wrap {
+      background: var(--bg-3);
+      border: 1px solid var(--border);
+      border-radius: var(--r);
+      overflow: hidden;
+    }
+    .preview-table {
+      width: 100%;
+      border-collapse: collapse;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 12px;
+    }
+    .preview-table thead { background: var(--bg-4); }
+    .preview-table thead th {
+      padding: 10px 14px;
+      text-align: left;
+      font-size: 10px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--ink-3);
+      font-weight: 500;
+      border-right: 1px solid var(--border);
+    }
+    .preview-table thead th:last-child { border-right: none; }
+    .preview-table tbody td {
+      padding: 9px 14px;
+      border-bottom: 1px solid var(--border);
+      border-right: 1px solid var(--border);
+      color: var(--ink-2);
+      font-size: 12px;
+    }
+    .preview-table tbody td:last-child { border-right: none; }
+    .preview-table tbody tr:last-child td { border-bottom: none; }
+    .hs { color: var(--teal); font-weight: 500; }
+    .rate-z { color: #34d399; }
+    .rate-h { color: #f87171; }
+    .rate-m { color: var(--gold-2); }
+    .preview-blur-row td {
+      filter: blur(5px);
+      user-select: none;
+      color: var(--ink-3) !important;
+    }
+    .preview-lock {
+      text-align: center;
+      padding: 20px;
+      font-size: 13px;
+      color: var(--ink-3);
+      border-top: 1px solid var(--border);
+    }
+    .preview-lock a { color: var(--gold-2); text-decoration: none; font-weight: 600; }
+    .preview-chapters {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .preview-chapter {
+      font-size: 11px;
+      padding: 5px 11px;
+      border-radius: 6px;
+      background: var(--bg-4);
+      border: 1px solid var(--border);
+      color: var(--ink-3);
+    }
+    .preview-chapter.unlocked { color: var(--ink-2); border-color: var(--border-2); }
+    .preview-chapter.locked { opacity: 0.45; }
+
+    /* ── PURCHASE ────────────────────────────── */
+    .purchase {
+      padding: 90px 24px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+    }
+    .purchase-box {
+      max-width: 540px;
+      margin: 0 auto;
+      background: var(--bg-3);
+      border: 1px solid var(--gold-border);
+      border-radius: var(--r-xl);
+      padding: 48px 44px;
+      text-align: center;
+      box-shadow: 0 0 60px rgba(245,158,11,0.06);
+    }
+    .purchase-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 16px;
+    }
+    .purchase-box h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--ink);
+      margin-bottom: 8px;
+      letter-spacing: -0.5px;
+    }
+    .purchase-desc {
+      font-size: 14px;
+      color: var(--ink-2);
+      margin-bottom: 32px;
+      line-height: 1.7;
+    }
+    .purchase-price {
+      display: flex;
+      align-items: baseline;
+      justify-content: center;
+      gap: 10px;
+      margin-bottom: 32px;
+    }
+    .price-main {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 52px;
+      font-weight: 800;
+      color: var(--gold-2);
+      letter-spacing: -2px;
+    }
+    .price-detail { font-size: 15px; color: var(--ink-3); text-align: left; }
+    .price-detail strong { display: block; color: var(--ink-2); }
+    .purchase-features {
+      list-style: none;
+      margin-bottom: 32px;
+      text-align: left;
+      display: inline-block;
+    }
+    .purchase-features li {
+      font-size: 14px;
+      color: var(--ink-2);
+      padding: 6px 0;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .purchase-features li::before {
+      content: '✓';
+      color: var(--teal);
+      font-weight: 700;
+      font-size: 13px;
+      flex-shrink: 0;
+    }
+    .ls-checkout-btn {
+      display: block;
+      width: 100%;
+      background: var(--gold);
+      color: #060d18;
+      font-weight: 700;
+      font-size: 16px;
+      padding: 17px 32px;
+      border-radius: var(--r);
+      text-decoration: none;
+      transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
+      cursor: pointer;
+      border: none;
+    }
+    .ls-checkout-btn:hover {
+      background: var(--gold-2);
+      transform: translateY(-2px);
+      box-shadow: 0 10px 32px rgba(245,158,11,0.35);
+    }
+    .purchase-guarantee {
+      margin-top: 20px;
+      font-size: 12px;
+      color: var(--ink-3);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 6px;
+    }
+    .purchase-guarantee::before { content: '🔒'; font-size: 13px; }
+
+    /* ── TRUST ───────────────────────────────── */
+    .trust {
+      padding: 80px 24px;
+    }
+    .trust-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+      max-width: 800px;
+      margin: 0 auto 56px;
+    }
+    .trust-item {
+      text-align: center;
+      padding: 28px 20px;
+      background: var(--bg-2);
+      border: 1px solid var(--border);
+      border-radius: var(--r-lg);
+    }
+    .trust-item .num {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--gold-2);
+      margin-bottom: 6px;
+    }
+    .trust-item .label {
+      font-size: 13px;
+      color: var(--ink-3);
+    }
+
+    /* ── FAQ ─────────────────────────────────── */
+    .faq {
+      padding: 80px 24px;
+      background: var(--bg-2);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+    }
+    .faq h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.5rem, 2.5vw, 2rem);
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      text-align: center;
+      margin-bottom: 48px;
+      color: var(--ink);
+    }
+    .faq-list { max-width: 680px; margin: 0 auto; }
+    .faq-item {
+      border-bottom: 1px solid var(--border);
+      padding: 24px 0;
+    }
+    .faq-item:first-child { border-top: 1px solid var(--border); }
+    .faq-q {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--ink);
+      margin-bottom: 10px;
+    }
+    .faq-a {
+      font-size: 14px;
+      color: var(--ink-2);
+      line-height: 1.75;
+    }
+
+    /* ── FINAL CTA ───────────────────────────── */
+    .final-cta {
+      padding: 100px 24px;
+      text-align: center;
+    }
+    .final-cta h2 {
+      font-family: 'Space Grotesk', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 3rem);
+      font-weight: 800;
+      color: var(--ink);
+      letter-spacing: -1px;
+      margin-bottom: 16px;
+    }
+    .final-cta h2 em {
+      font-style: normal;
+      color: var(--gold-2);
+    }
+    .final-cta p {
+      font-size: 16px;
+      color: var(--ink-2);
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ─────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 32px 40px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-size: 13px;
+      color: var(--ink-3);
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+    footer a { color: var(--ink-3); text-decoration: none; }
+    footer a:hover { color: var(--ink-2); }
+
+    /* ── RESPONSIVE ─────────────────────────── */
+    @media (max-width: 640px) {
+      nav { padding: 0 20px; }
+      .preview-body { padding: 20px; }
+      .purchase-box { padding: 32px 24px; }
+      footer { justify-content: center; text-align: center; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav id="nav">
+  <a href="#" class="nav-logo">Tariff<span>Map</span></a>
+  <a href="#buy" class="nav-cta">Get the Guide — $19</a>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-badge">HS Code & Tariff Reference · 2025 Edition</div>
+  <h1>Find the Right HS Code &amp; Tariff Rate — <em>Instantly</em></h1>
+  <p class="hero-sub">Stop guessing. The TariffMap 2025 Reference Guide covers 10 major import/export categories across Australia, USA, and China — with real misclassification cases that cost businesses thousands.</p>
+  <div class="hero-cta-group">
+    <a href="#buy" class="btn-primary">Get the Guide — $19 →</a>
+    <a href="#preview" class="btn-ghost">See inside the guide</a>
+  </div>
+  <div class="hero-proof">
+    <span class="hero-proof-item">10 trade categories</span>
+    <span class="hero-proof-item">AU · US · CN tariff rates</span>
+    <span class="hero-proof-item">5 misclassification case studies</span>
+    <span class="hero-proof-item">2025 data</span>
+  </div>
+</section>
+
+<!-- PAIN POINTS -->
+<section class="pain">
+  <div class="section-inner">
+    <div class="section-label">The Problem</div>
+    <h2>Wrong HS Code = You Pay the Bill</h2>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <div class="pain-icon red">⚠️</div>
+        <h3>Misclassification triggers fines &amp; delays</h3>
+        <p>Customs authorities audit post-clearance. A wrong HS code doesn't just mean the wrong duty rate — it means penalties, hold-and-examine delays, and potential seizure. One reclassification can trigger review of all prior shipments.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon amber">📊</div>
+        <h3>Tariff rates change — and they change fast</h3>
+        <p>Section 301 tariffs, anti-dumping measures, TRQ thresholds, FTA phase-outs. What was 0% last year might be 25% today. Official schedules are thousands of pages long and updated without notice.</p>
+      </div>
+      <div class="pain-card">
+        <div class="pain-icon blue">💸</div>
+        <h3>You end up overpaying or underpaying — both are problems</h3>
+        <p>Overpay and you're leaving margin on the table. Underpay and you face back-duty demands with interest. Either way, the cost of getting it wrong is always higher than the cost of getting it right the first time.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PREVIEW -->
+<section class="preview" id="preview">
+  <div class="section-inner">
+    <div class="section-label">What's Inside</div>
+    <h2>A Working Reference You Can Actually Use</h2>
+    <p class="preview-sub">Not a 400-page customs manual. A practical reference guide with the codes, rates, and notes that matter — in 10 categories.</p>
+
+    <div class="preview-window">
+      <div class="preview-chrome">
+        <div class="preview-dots">
+          <span></span><span></span><span></span>
+        </div>
+        <div class="preview-title-bar">TariffMap_2025_Reference_Guide.html — 3 markets · 2025 rates</div>
+      </div>
+      <div class="preview-body">
+        <div class="preview-header-row">
+          <div>
+            <div class="preview-doc-title">TariffMap 2025 — HS Code & Tariff Reference Guide</div>
+            <div class="preview-doc-sub">Import / Export Compliance for 10 Major Trade Categories</div>
+          </div>
+          <div class="preview-badges">
+            <span class="preview-badge pdf">HTML + Print PDF</span>
+            <span class="preview-badge year">2025 Data</span>
+            <span class="preview-badge mkts">AU · US · CN</span>
+          </div>
+        </div>
+
+        <!-- Sample table: Electronics excerpt -->
+        <div class="preview-table-wrap">
+          <table class="preview-table">
+            <thead>
+              <tr>
+                <th>HS Code</th>
+                <th>Description</th>
+                <th>AUS Rate</th>
+                <th>US MFN</th>
+                <th>CN MFN</th>
+                <th>Key Notes</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td class="hs">8471.30</td>
+                <td>Portable digital ADP machines (laptops)</td>
+                <td class="rate-z">0%</td>
+                <td class="rate-z">Free</td>
+                <td class="rate-z">0%</td>
+                <td style="font-size:11px;color:var(--ink-3);">ITA signatory benefit</td>
+              </tr>
+              <tr>
+                <td class="hs">8517.12</td>
+                <td>Telephones for cellular networks / smartphones</td>
+                <td class="rate-z">0%</td>
+                <td class="rate-z">Free</td>
+                <td class="rate-z">0%</td>
+                <td style="font-size:11px;color:var(--ink-3);">Sec.301 may add 25% CN-origin</td>
+              </tr>
+              <tr>
+                <td class="hs">8507.60</td>
+                <td>Lithium-ion batteries (standalone packs)</td>
+                <td class="rate-z">0%</td>
+                <td class="rate-m">3.4–7.4%</td>
+                <td class="rate-m">7%</td>
+                <td style="font-size:11px;color:var(--ink-3);">Sec.301 List 3: +25% CN surcharge</td>
+              </tr>
+              <tr class="preview-blur-row">
+                <td>6109.10</td>
+                <td>T-shirts, singlets (cotton, knitted)</td>
+                <td>0%</td>
+                <td>16.5%</td>
+                <td>14%</td>
+                <td>AUSFTA reduces US rate</td>
+              </tr>
+              <tr class="preview-blur-row">
+                <td>7208.51</td>
+                <td>Flat-rolled iron/steel products, hot-rolled</td>
+                <td>0%</td>
+                <td>Free+Sec.232</td>
+                <td>6%</td>
+                <td>+25% Section 232 US surcharge</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="preview-lock">
+          Full guide includes all 10 categories. <a href="#buy">Get complete access — $19</a>
+        </div>
+
+        <!-- Chapter list -->
+        <div class="preview-chapters">
+          <span class="preview-chapter unlocked">Electronics</span>
+          <span class="preview-chapter unlocked">Textiles</span>
+          <span class="preview-chapter unlocked">Machinery</span>
+          <span class="preview-chapter locked">Food &amp; Agri 🔒</span>
+          <span class="preview-chapter locked">Chemicals 🔒</span>
+          <span class="preview-chapter locked">Metals 🔒</span>
+          <span class="preview-chapter locked">Automotive 🔒</span>
+          <span class="preview-chapter locked">Furniture 🔒</span>
+          <span class="preview-chapter locked">Toys &amp; Sports 🔒</span>
+          <span class="preview-chapter locked">Medical Devices 🔒</span>
+          <span class="preview-chapter locked">5 Case Studies 🔒</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PURCHASE -->
+<section class="purchase" id="buy">
+  <div class="purchase-box">
+    <div class="purchase-eyebrow">One-Time Purchase</div>
+    <h2>TariffMap 2025 Reference Guide</h2>
+    <p class="purchase-desc">The practical HS code &amp; tariff reference for import/export teams, freight forwarders, and trade lawyers — delivered to your inbox instantly.</p>
+
+    <div class="purchase-price">
+      <span class="price-main">$19</span>
+      <span class="price-detail">
+        <strong>One-time</strong>
+        No subscription
+      </span>
+    </div>
+
+    <ul class="purchase-features">
+      <li>10 trade categories, 50+ HS code entries</li>
+      <li>AU, US MFN, and CN MFN rates per item</li>
+      <li>Compliance notes for each entry</li>
+      <li>5 real misclassification case studies</li>
+      <li>HS code structure &amp; classification guide</li>
+      <li>HTML file — readable &amp; printable to PDF</li>
+      <li>Delivered to your email in minutes</li>
+    </ul>
+
+    <a href="LEMON_SQUEEZY_CHECKOUT_URL" class="ls-checkout-btn" id="buy-btn">
+      Get Instant Access — $19
+    </a>
+    <p class="purchase-guarantee">Secure checkout via Lemon Squeezy · Instant delivery</p>
+  </div>
+</section>
+
+<!-- TRUST NUMBERS -->
+<section class="trust">
+  <div class="section-inner">
+    <div class="section-label">By the Numbers</div>
+    <div class="trust-grid">
+      <div class="trust-item">
+        <div class="num">10</div>
+        <div class="label">Major trade categories</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">3</div>
+        <div class="label">Markets covered (AU · US · CN)</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">50+</div>
+        <div class="label">HS code entries with rates</div>
+      </div>
+      <div class="trust-item">
+        <div class="num">5</div>
+        <div class="label">Real misclassification cases</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FAQ -->
+<section class="faq">
+  <div class="section-inner">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q">How is the guide delivered?</div>
+        <div class="faq-a">After purchase via Lemon Squeezy, you'll receive a download link to your email within minutes. The guide is a standalone HTML file — open it in any browser, print to PDF, or save it locally. No account or app required.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Is this a subscription? Can I get updates?</div>
+        <div class="faq-a">This is a one-time purchase, not a subscription. The 2025 edition reflects current tariff schedules as of the publication date. Tariff rates change regularly — we recommend verifying critical classifications against the official customs authority schedule before filing.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Does this replace a customs broker or trade lawyer?</div>
+        <div class="faq-a">No. This guide is a reference tool to help you quickly look up codes and rates, understand the classification logic, and spot common misclassification risks. For high-value shipments or complex products, always work with a licensed customs broker. Think of this as the cheat sheet your broker wishes they had at a glance.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">My product category isn't on the list — what do I do?</div>
+        <div class="faq-a">The guide covers the 10 highest-volume trade categories. The HS code structure section (included) explains the classification methodology that applies to every product — learning the logic is often more valuable than a lookup table. If you need a custom category covered, email us at tony@fridaylab.io.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">What countries are covered?</div>
+        <div class="faq-a">Australia (AUS customs schedule), United States (US MFN rates including Section 301 and 232 notes), and China (CN MFN rates with RCEP notes). FTA preferential rates (e.g. ChAFTA, AUSFTA, USMCA) are flagged where relevant, but you'll need to pull the specific agreement schedule to confirm your FTA-origin eligibility.</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FINAL CTA -->
+<section class="final-cta">
+  <div class="section-inner">
+    <h2>Get your tariffs right<br><em>the first time.</em></h2>
+    <p>One misclassification can cost more than 100× the price of this guide.</p>
+    <a href="#buy" class="btn-primary">Get TariffMap 2025 — $19 →</a>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <span>© 2025 Friday Lab · fridaylab.io</span>
+  <span>
+    <a href="mailto:tony@fridaylab.io">tony@fridaylab.io</a>
+    &nbsp;·&nbsp;
+    <a href="/thank-you.html">After purchase</a>
+  </span>
+</footer>
+
+<!-- GoatCounter -->
+<script data-goatcounter="https://friday-lab.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
+
+<script>
+  // Nav scroll effect
+  const nav = document.getElementById('nav');
+  window.addEventListener('scroll', () => {
+    nav.classList.toggle('scrolled', window.scrollY > 60);
+  }, { passive: true });
+
+  // GoatCounter buy-click beacon
+  const buyBtn = document.getElementById('buy-btn');
+  if (buyBtn) {
+    buyBtn.addEventListener('click', () => {
+      if (window.goatcounter && window.goatcounter.count) {
+        window.goatcounter.count({ path: 'tariffmap-buy-click', title: 'Buy Button Clicked', event: true });
+      }
+    });
+  }
+</script>
+
+</body>
+</html>

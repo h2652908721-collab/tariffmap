@@ -1,0 +1,1108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>TariffMap 2025 — Import/Export HS Code & Tariff Reference Guide</title>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy:    #0f1e36;
+    --navy-2:  #162944;
+    --navy-3:  #1e3a5f;
+    --ink:     #1a2b3c;
+    --ink-2:   #3a5068;
+    --gold:    #c9922a;
+    --gold-2:  #e8b04a;
+    --teal:    #1a7f8e;
+    --teal-2:  #22a0b2;
+    --red:     #c0392b;
+    --green:   #1a8a4a;
+    --border:  #d0dde8;
+    --bg:      #f5f8fc;
+    --white:   #ffffff;
+    --text:    #1a2b3c;
+  }
+
+  @media print {
+    body { font-size: 10pt; }
+    .no-print { display: none !important; }
+    h2 { page-break-before: always; }
+    h2:first-of-type { page-break-before: avoid; }
+    table { page-break-inside: avoid; }
+    .category-block { page-break-inside: avoid; }
+  }
+
+  body {
+    font-family: 'Georgia', 'Times New Roman', serif;
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--text);
+    background: var(--bg);
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+  }
+
+  /* Cover page */
+  .cover {
+    background: linear-gradient(155deg, var(--navy) 0%, var(--navy-3) 60%, #0d3a6e 100%);
+    color: white;
+    padding: 80px 60px;
+    min-height: 420px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cover::before {
+    content: '';
+    position: absolute;
+    top: -80px; right: -80px;
+    width: 400px; height: 400px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(201,146,42,0.15) 0%, transparent 70%);
+  }
+  .cover-badge {
+    display: inline-block;
+    background: var(--gold);
+    color: white;
+    font-family: 'Arial', sans-serif;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    padding: 6px 14px;
+    border-radius: 3px;
+    margin-bottom: 28px;
+  }
+  .cover h1 {
+    font-size: 42px;
+    font-weight: normal;
+    line-height: 1.2;
+    margin-bottom: 16px;
+    letter-spacing: -0.5px;
+  }
+  .cover h1 strong {
+    color: var(--gold-2);
+  }
+  .cover .subtitle {
+    font-size: 18px;
+    color: rgba(255,255,255,0.75);
+    margin-bottom: 40px;
+    font-style: italic;
+  }
+  .cover-meta {
+    display: flex;
+    gap: 36px;
+    margin-top: 36px;
+  }
+  .cover-meta-item {
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    color: rgba(255,255,255,0.6);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+  }
+  .cover-meta-item strong {
+    display: block;
+    font-size: 16px;
+    color: var(--gold-2);
+    text-transform: none;
+    letter-spacing: 0;
+    margin-bottom: 2px;
+  }
+
+  /* Content wrapper */
+  .content {
+    background: white;
+    padding: 60px;
+  }
+
+  /* TOC */
+  .toc {
+    background: var(--bg);
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--teal);
+    padding: 32px 36px;
+    margin-bottom: 48px;
+    border-radius: 0 6px 6px 0;
+  }
+  .toc h2 {
+    font-size: 14px;
+    font-family: 'Arial', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: var(--teal);
+    margin-bottom: 16px;
+    border: none;
+    padding: 0;
+  }
+  .toc ol {
+    columns: 2;
+    gap: 24px;
+    padding-left: 18px;
+    font-size: 13px;
+    color: var(--ink-2);
+    font-family: 'Arial', sans-serif;
+    line-height: 2;
+  }
+
+  /* Section headings */
+  h2 {
+    font-size: 22px;
+    color: var(--navy);
+    border-bottom: 2px solid var(--gold);
+    padding-bottom: 10px;
+    margin: 48px 0 24px;
+    font-weight: normal;
+    letter-spacing: -0.3px;
+  }
+  h3 {
+    font-size: 16px;
+    color: var(--navy-3);
+    margin: 28px 0 12px;
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+  }
+
+  /* Tables */
+  .table-wrap {
+    overflow-x: auto;
+    margin: 20px 0 32px;
+    border: 1px solid var(--border);
+    border-radius: 4px;
+    box-shadow: 0 1px 4px rgba(0,0,0,0.06);
+  }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    font-family: 'Arial', sans-serif;
+    font-size: 12.5px;
+  }
+  thead {
+    background: var(--navy);
+    color: white;
+  }
+  thead th {
+    padding: 11px 14px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    border-right: 1px solid rgba(255,255,255,0.1);
+  }
+  thead th:last-child { border-right: none; }
+  tbody tr:nth-child(even) { background: var(--bg); }
+  tbody tr:hover { background: #edf2f8; }
+  tbody td {
+    padding: 10px 14px;
+    border-bottom: 1px solid var(--border);
+    border-right: 1px solid var(--border);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  tbody td:last-child { border-right: none; }
+  .rate { font-weight: 600; }
+  .rate-high { color: var(--red); }
+  .rate-mid { color: var(--gold); }
+  .rate-low { color: var(--green); }
+  .hs-code { font-family: 'Courier New', monospace; font-weight: 600; color: var(--teal); }
+  .note { font-size: 11.5px; color: var(--ink-2); font-style: italic; }
+
+  /* Callout boxes */
+  .callout {
+    border-left: 4px solid;
+    padding: 16px 20px;
+    margin: 20px 0;
+    border-radius: 0 6px 6px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 13px;
+  }
+  .callout.info { border-color: var(--teal); background: #f0f8fa; }
+  .callout.warn { border-color: var(--gold); background: #fdf8ee; }
+  .callout.danger { border-color: var(--red); background: #fdf2f1; }
+  .callout strong { display: block; margin-bottom: 4px; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; }
+  .callout.info strong { color: var(--teal); }
+  .callout.warn strong { color: var(--gold); }
+  .callout.danger strong { color: var(--red); }
+
+  /* HS Code structure diagram */
+  .hs-diagram {
+    display: flex;
+    align-items: stretch;
+    gap: 0;
+    margin: 24px 0;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+  }
+  .hs-part {
+    flex: 1;
+    padding: 16px;
+    text-align: center;
+    border: 1px solid var(--border);
+    margin-left: -1px;
+  }
+  .hs-part:first-child { margin-left: 0; border-radius: 4px 0 0 4px; }
+  .hs-part:last-child { border-radius: 0 4px 4px 0; }
+  .hs-part.chapter { background: var(--navy); color: white; }
+  .hs-part.heading { background: var(--navy-3); color: white; }
+  .hs-part.subheading { background: var(--teal); color: white; }
+  .hs-part.national { background: var(--gold); color: white; }
+  .hs-part-digits {
+    font-size: 22px;
+    font-weight: 700;
+    font-family: 'Courier New', monospace;
+    display: block;
+    margin-bottom: 6px;
+  }
+  .hs-part-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    opacity: 0.85;
+  }
+
+  /* Error case */
+  .error-case {
+    background: white;
+    border: 1px solid var(--border);
+    border-top: 3px solid var(--red);
+    padding: 20px 24px;
+    margin: 16px 0;
+    border-radius: 0 0 6px 6px;
+  }
+  .error-case .case-title {
+    font-family: 'Arial', sans-serif;
+    font-weight: 700;
+    font-size: 13px;
+    color: var(--red);
+    margin-bottom: 8px;
+  }
+  .error-case .case-body {
+    font-size: 13px;
+    color: var(--ink-2);
+    font-family: 'Arial', sans-serif;
+    line-height: 1.6;
+  }
+  .error-case .case-fix {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid var(--border);
+    font-size: 12px;
+    color: var(--green);
+    font-family: 'Arial', sans-serif;
+  }
+  .error-case .case-fix::before { content: '✓ Fix: '; font-weight: 700; }
+
+  /* Footer */
+  .doc-footer {
+    background: var(--navy);
+    color: rgba(255,255,255,0.6);
+    padding: 28px 60px;
+    font-family: 'Arial', sans-serif;
+    font-size: 12px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  .doc-footer strong { color: var(--gold-2); }
+
+  /* Disclaimer */
+  .disclaimer {
+    background: #fffbf0;
+    border: 1px solid #e8c866;
+    padding: 16px 20px;
+    border-radius: 4px;
+    font-size: 12px;
+    font-family: 'Arial', sans-serif;
+    color: #7a6020;
+    margin: 40px 0 0;
+    line-height: 1.6;
+  }
+</style>
+</head>
+<body>
+
+<!-- Cover -->
+<div class="cover">
+  <div class="cover-badge">2025 Edition</div>
+  <h1>TariffMap<br><strong>HS Code & Tariff</strong><br>Reference Guide</h1>
+  <p class="subtitle">Import / Export Compliance for 10 Major Trade Categories</p>
+  <div class="cover-meta">
+    <div class="cover-meta-item"><strong>3 Markets</strong>Australia · USA · China</div>
+    <div class="cover-meta-item"><strong>10 Categories</strong>Major import/export sectors</div>
+    <div class="cover-meta-item"><strong>2025 Data</strong>Current tariff schedules</div>
+    <div class="cover-meta-item"><strong>Friday Lab</strong>fridaylab.io</div>
+  </div>
+</div>
+
+<!-- Content -->
+<div class="content">
+
+  <!-- TOC -->
+  <div class="toc">
+    <h2>Table of Contents</h2>
+    <ol>
+      <li>HS Code Structure Explained</li>
+      <li>Electronics & Technology</li>
+      <li>Textiles & Apparel</li>
+      <li>Machinery & Equipment</li>
+      <li>Food & Agricultural Products</li>
+      <li>Chemicals & Plastics</li>
+      <li>Metals & Raw Materials</li>
+      <li>Automotive Parts</li>
+      <li>Furniture & Furnishings</li>
+      <li>Toys, Games & Sporting Goods</li>
+      <li>Medical Devices & Equipment</li>
+      <li>Common Misclassification Cases</li>
+    </ol>
+  </div>
+
+  <div class="callout info">
+    <strong>How to use this guide</strong>
+    Each category table shows the HS code, description, and applicable tariff rates for Australia (AUS), the United States (US MFN), and China (CN MFN). Tariff rates shown are <em>standard Most Favoured Nation (MFN)</em> rates. Preferential rates under FTAs (e.g., ChAFTA, AUSFTA, RCEP) may apply — check the relevant agreement schedule before filing.
+  </div>
+
+  <!-- Section 1: HS Code Structure -->
+  <h2>1. HS Code Structure Explained</h2>
+  <p>The Harmonized System (HS) is a standardized numerical system for classifying traded products. It is used by customs authorities in 200+ countries. Understanding the code structure prevents costly misclassification penalties.</p>
+
+  <div class="hs-diagram">
+    <div class="hs-part chapter">
+      <span class="hs-part-digits">85</span>
+      <span class="hs-part-label">Chapter (2 digits)<br>Broad category</span>
+    </div>
+    <div class="hs-part heading">
+      <span class="hs-part-digits">17</span>
+      <span class="hs-part-label">Heading (4 digits)<br>Sub-category</span>
+    </div>
+    <div class="hs-part subheading">
+      <span class="hs-part-digits">30</span>
+      <span class="hs-part-label">Subheading (6 digits)<br>International standard</span>
+    </div>
+    <div class="hs-part national">
+      <span class="hs-part-digits">90</span>
+      <span class="hs-part-label">National (8–10 digits)<br>Country-specific</span>
+    </div>
+  </div>
+
+  <p>Example: <span class="hs-code">8517.30.90</span> — Mobile phones with camera and internet capability, national subheading (Australia).</p>
+
+  <div class="callout warn">
+    <strong>Classification Hierarchy Rule</strong>
+    Always classify to the most specific applicable subheading. GRI (General Rules for the Interpretation) Rule 3(a) states: "The heading which provides the most specific description shall be preferred to headings providing a more general description."
+  </div>
+
+  <h3>Classification Method: 4-Step Process</h3>
+  <ol style="padding-left:20px; font-family:'Arial',sans-serif; font-size:13px; line-height:2.2;">
+    <li><strong>Identify the essential character</strong> of your product (material composition, primary function, use)</li>
+    <li><strong>Find the 4-digit heading</strong> in your country's tariff schedule (e.g., ABCC for AU)</li>
+    <li><strong>Drill to 6-digit subheading</strong> — this is the internationally harmonized level</li>
+    <li><strong>Apply national extensions</strong> (8–10 digits) per your country's tariff schedule for the final duty rate</li>
+  </ol>
+
+
+  <!-- Section 2: Electronics -->
+  <h2>2. Electronics & Technology</h2>
+  <p>Chapter 85 covers electrical machinery, electronic equipment, and parts thereof. This is one of the highest-volume import categories globally and also one of the most frequently misclassified.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">8471.30</td>
+          <td>Portable digital automatic data-processing machines (laptops)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">ITA signatory benefit. Verify "portable" definition.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8517.12</td>
+          <td>Telephones for cellular networks / smartphones</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">ITA covers. Section 301 may add 25% for CN-origin.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8543.70</td>
+          <td>Other electrical machines (IoT devices, smart home)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">Free–4.9%</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">Rate depends on specific function; verify subheading.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8528.72</td>
+          <td>Reception apparatus for television (smart TVs, monitors)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">8%</td>
+          <td class="note">AUS-US ITA zero. CN rate applies on screen size bands.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8507.60</td>
+          <td>Lithium-ion batteries (standalone packs)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">3.4–7.4%</td>
+          <td class="rate rate-mid">7%</td>
+          <td class="note">Section 301 List 3: +25% US surcharge for CN-origin.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8523.51</td>
+          <td>Solid-state non-volatile storage devices (USB drives, SSDs)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">ITA covers. Ensure device has no entertainment function.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 3: Textiles -->
+  <h2>3. Textiles & Apparel</h2>
+  <p>Chapters 50–63 cover textiles. Tariff rates in this sector vary heavily by fabric type, construction method, and end use. Country of origin determination is critical — "substantially transformed" rules apply.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">6109.10</td>
+          <td>T-shirts, singlets (cotton, knitted)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">16.5%</td>
+          <td class="rate rate-mid">14%</td>
+          <td class="note">AUSFTA reduces US rate for AUS-origin goods.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">6203.42</td>
+          <td>Men's trousers, bib and brace overalls (cotton, not knitted)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">17%</td>
+          <td class="rate rate-mid">14%</td>
+          <td class="note">Country of origin critical; labelling requirements strict.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">6302.21</td>
+          <td>Bed linen (cotton, printed)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">6.4%</td>
+          <td class="rate rate-mid">14%</td>
+          <td class="note">AU 0% since 2005 tariff reform. RCEP may reduce CN rate.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">6404.19</td>
+          <td>Sports footwear (outer sole rubber/plastic, textile upper)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-high">20%</td>
+          <td class="rate rate-mid">12%</td>
+          <td class="note">US footwear tariffs remain high; verify outer sole material.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">5209.11</td>
+          <td>Woven fabrics of cotton, ≥85% by weight (plain weave)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">6.4%</td>
+          <td class="rate rate-low">4%</td>
+          <td class="note">Thread count and yarn size affect subheading.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 4: Machinery -->
+  <h2>4. Machinery & Equipment</h2>
+  <p>Chapters 84–85 cover mechanical and electrical machinery. Industrial equipment typically attracts low or zero MFN duty in most markets, but complex machines require precise classification of principal function.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">8422.30</td>
+          <td>Machinery for filling, closing, sealing packaging containers</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Combination machines: classify by principal function.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8479.89</td>
+          <td>Other machines for specific industries (industrial robots)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Verify programming software not separately classifiable.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8428.90</td>
+          <td>Other lifting, handling, loading machinery (conveyor, forklift)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Parts may attract separate heading under 8431.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8421.39</td>
+          <td>Filtering/purifying apparatus for liquids (water treatment)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">5%</td>
+          <td class="note">Capacity matters; industrial vs domestic classification differs.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8483.40</td>
+          <td>Gears and gearing, ball screws (transmission components)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Spare parts for existing machinery may use parent machine code.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 5: Food & Agriculture -->
+  <h2>5. Food & Agricultural Products</h2>
+  <p>Chapters 1–24 cover live animals through prepared foodstuffs. This sector has the highest variance in duty rates globally and involves quarantine/biosecurity requirements beyond customs duty. Always check sanitary and phytosanitary (SPS) measures.</p>
+
+  <div class="callout danger">
+    <strong>Biosecurity Alert</strong>
+    In addition to tariff classification, all food and agricultural imports into Australia and the US require compliance with quarantine (DAFF/USDA APHIS) and food safety (FSANZ/FDA) regulations. Tariff clearance alone does not mean the shipment can be released.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">0901.11</td>
+          <td>Coffee, not roasted, not decaffeinated</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Roasted coffee (0901.21) remains 0% in most markets.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">2002.10</td>
+          <td>Tomatoes, whole or in pieces (prepared/preserved)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">11.6%</td>
+          <td class="rate rate-mid">15%</td>
+          <td class="note">Paste vs. whole affects subheading and rate significantly.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">1001.99</td>
+          <td>Wheat and meslin (other than seed)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">65%</td>
+          <td class="note">CN TRQ applies; over-quota rate is 65%. Quota tracking required.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">0201.10</td>
+          <td>Carcases and half-carcases of bovine animals (fresh)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">26.4%</td>
+          <td class="rate rate-mid">12%</td>
+          <td class="note">US TRQ applies (0–12%); AUSFTA phase-out schedule.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">1701.14</td>
+          <td>Raw cane sugar (other than for refining)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">1.4606¢/kg</td>
+          <td class="rate rate-mid">50%</td>
+          <td class="note">US uses specific rate (cents/kg). CN tariff reduced under RCEP.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 6: Chemicals -->
+  <h2>6. Chemicals & Plastics</h2>
+  <p>Chapters 28–39 cover chemicals, plastics, and rubber. Classification is highly technical and often requires chemical composition analysis. Industrial chemicals generally face low tariffs; formulated products face higher rates.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">3920.10</td>
+          <td>Plates, sheets, film of polymers of ethylene (polyethylene)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free–3.7%</td>
+          <td class="rate rate-mid">6.5%</td>
+          <td class="note">Flexible vs. rigid packaging classification differs.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">3402.20</td>
+          <td>Preparations for washing skin (surface-active agent preparations)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">6.5%</td>
+          <td class="note">Active ingredient ≥ threshold moves goods to Ch.30 pharma.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">2817.00</td>
+          <td>Zinc oxide; zinc peroxide</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Purity ≥99% matters for pharmaceutical-grade classification.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">3808.91</td>
+          <td>Insecticides (put up in forms for retail sale)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">5%</td>
+          <td class="note">APVMA (AU) registration required separate from customs.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">3926.90</td>
+          <td>Other articles of plastics (miscellaneous plastic goods)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">3.4–5.3%</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">Catch-all subheading; verify no more specific heading exists first.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 7: Metals -->
+  <h2>7. Metals & Raw Materials</h2>
+  <p>Chapters 72–83 cover iron, steel, and base metals. Anti-dumping duties on steel and aluminium products are active in multiple markets. Always check anti-dumping measures in addition to MFN rates.</p>
+
+  <div class="callout danger">
+    <strong>Anti-Dumping Alert</strong>
+    The US has active Section 232 tariffs (25% on steel, 10% on aluminium from most origins) and Section 201 safeguards. Australia has anti-dumping measures on steel from certain origins. These are applied <em>in addition to</em> MFN rates shown below.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">7208.51</td>
+          <td>Flat-rolled products of iron/steel, width ≥600mm, hot-rolled</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free + Sec.232</td>
+          <td class="rate rate-mid">6%</td>
+          <td class="note">US: +25% Section 232 for most origins. Check country exemptions.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">7601.10</td>
+          <td>Aluminium (not alloyed) in unwrought form</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free + Sec.232</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">US Sec.232: +10% aluminium. Canada/Mexico exempt under USMCA.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">7306.30</td>
+          <td>Circular cross-section tubes and pipes (iron or steel)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">Free–6.5%</td>
+          <td class="rate rate-mid">6%</td>
+          <td class="note">Seamless vs. welded distinction is critical for subheading.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">7403.11</td>
+          <td>Refined copper cathodes and cathode sections (unwrought)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Purity classification: refined ≥99.85% Cu.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">7317.00</td>
+          <td>Nails, tacks, drawing pins (iron or steel)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">Free–4%</td>
+          <td class="rate rate-mid">5.5%</td>
+          <td class="note">Anti-dumping duties common on fasteners; check country of origin.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 8: Automotive -->
+  <h2>8. Automotive Parts</h2>
+  <p>Chapter 87 covers motor vehicles; Chapter 84/85 cover many engine and electrical components. Parts for EVs (electric vehicles) are increasingly scrutinized for origin rules given critical mineral supply chains.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">8708.40</td>
+          <td>Gear boxes for motor vehicles</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">OEM vs. aftermarket distinction may affect tariff treatment.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8708.91</td>
+          <td>Radiators for motor vehicles</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">Cooling liquid type affects sub-classification.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8544.30</td>
+          <td>Ignition wiring sets and other wiring sets for vehicles</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">6%</td>
+          <td class="note">EV battery wiring harnesses: verify voltage range sub-heading.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">8714.91</td>
+          <td>Frames and forks for cycles (including motorcycles)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">8%</td>
+          <td class="note">eBike frames: check Chapter 87 vs 8714 depending on motor integration.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">4011.10</td>
+          <td>New pneumatic tyres (for motor cars)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">4%</td>
+          <td class="rate rate-mid">9%</td>
+          <td class="note">Anti-dumping measures active for certain origins in US and AU.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 9: Furniture -->
+  <h2>9. Furniture & Furnishings</h2>
+  <p>Chapters 94–95 cover furniture, lighting, and prefabricated structures. Furniture is a sector with significant anti-dumping duties in the US against Chinese-origin products. Material composition (solid wood vs. engineered) significantly affects classification.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">9401.61</td>
+          <td>Wooden seats (other than for motor vehicles or aircraft)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">5%</td>
+          <td class="note">US ADD/CVD orders on wooden seating from China common.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9403.30</td>
+          <td>Wooden furniture for offices</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">6%</td>
+          <td class="note">Section 301 List 3: +25% US tariff on CN-origin office furniture.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9404.21</td>
+          <td>Mattresses of cellular rubber or plastics (foam)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">3%</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">US AD duties active on mattresses from CN and SE Asia.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9405.10</td>
+          <td>Chandeliers and other electric ceiling/wall light fittings</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">8%</td>
+          <td class="note">LED vs. incandescent affects energy compliance labelling.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9403.60</td>
+          <td>Wooden furniture for other purposes (domestic)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">5%</td>
+          <td class="note">Flat-pack self-assembly: verify as furniture not CKD kit.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 10: Toys -->
+  <h2>10. Toys, Games & Sporting Goods</h2>
+  <p>Chapter 95 covers toys, games, and sporting goods. This sector is subject to mandatory safety standards in all three markets (Australian/NZ Consumer Product Safety Standard, CPSC in the US, GB 6675 in China). Classification errors are common for items straddling toy/electronic/sporting categories.</p>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">9503.00</td>
+          <td>Tricycles, toy vehicles, dolls, other toys</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">CPSC testing required in US. AU toy safety standard mandatory.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9504.50</td>
+          <td>Video game consoles and machines</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">14%</td>
+          <td class="note">Handheld vs console distinction; software preloaded affects HSN.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9506.62</td>
+          <td>Inflatable balls (for sport or outdoor play)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">Competition-grade vs recreational: affects labelling requirements.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9506.91</td>
+          <td>Articles and equipment for general physical exercise, gymnastics</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">5%</td>
+          <td class="note">Home gym equipment: confirm no motor (would shift to Ch.84).</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9507.30</td>
+          <td>Fishing reels</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-mid">6%</td>
+          <td class="rate rate-mid">10%</td>
+          <td class="note">Electric-assist reels classify under 9507 or 8543 depending on primary function.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 11: Medical Devices -->
+  <h2>11. Medical Devices & Equipment</h2>
+  <p>Chapter 90 covers medical, optical, and measuring instruments. Medical devices require regulatory approval in addition to customs clearance — TGA registration in Australia, FDA 510(k)/PMA in the US, NMPA registration in China. Regulatory clearance timelines often exceed procurement lead times.</p>
+
+  <div class="callout info">
+    <strong>Regulatory Clearance Separate from Customs</strong>
+    Obtaining the correct HS code and paying the applicable tariff does not mean the medical device can be legally sold. Each market has a distinct regulatory pathway. Factor regulatory approval timelines into your procurement and market-entry schedule.
+  </div>
+
+  <div class="table-wrap">
+    <table>
+      <thead>
+        <tr>
+          <th>HS Code</th>
+          <th>Description</th>
+          <th>AUS Rate</th>
+          <th>US MFN Rate</th>
+          <th>CN MFN Rate</th>
+          <th>Key Notes</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="hs-code">9018.11</td>
+          <td>Electro-cardiographs (ECG machines)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">TGA Class IIb (AU); FDA Class II 510(k) pathway (US).</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9018.39</td>
+          <td>Other syringes, needles, catheters, cannulae</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Single-use designation required; sterility certification needed.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9021.10</td>
+          <td>Orthopaedic appliances (splints, fracture appliances)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Custom-fabricated vs prefabricated classification difference.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9027.10</td>
+          <td>Gas or smoke analysis apparatus (diagnostic instruments)</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-mid">3%</td>
+          <td class="note">In vitro diagnostic (IVD) devices: additional regulatory pathway.</td>
+        </tr>
+        <tr>
+          <td class="hs-code">9019.20</td>
+          <td>Ozone therapy, oxygen therapy apparatus, aerosol therapy devices</td>
+          <td class="rate rate-low">0%</td>
+          <td class="rate rate-low">Free</td>
+          <td class="rate rate-low">0%</td>
+          <td class="note">Home vs clinical grade classification. ARTG listing required for AU.</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+
+  <!-- Section 12: Misclassification Cases -->
+  <h2>12. Common Misclassification Cases</h2>
+  <p>These real-world classification errors appear repeatedly in customs audits and post-clearance reviews. Understanding the underlying logic prevents costly reclassification penalties.</p>
+
+  <div class="error-case">
+    <div class="case-title">Case 1: Smart Watch Classified as Watch (9102) Instead of Wearable Computer (8517)</div>
+    <div class="case-body">
+      An importer classified smartwatches under HS 9102 (wrist-watches, other than those of heading 91.01) based on form factor. Customs reclassified to 8517.62 (machines for reception, conversion and transmission/regeneration of voice, images or other data) because the primary function was data processing and communication, not timekeeping. Result: AU duty rate was 0% either way, but the US importer faced a 0% vs. 0% difference — however, the country-of-origin valuation for GST/duty purposes changed, triggering a penalty.
+    </div>
+    <div class="case-fix">Classify based on primary function (GRI Rule 3a). A smartwatch that primarily displays notifications, runs apps, and syncs data is a computing device, not a timepiece.</div>
+  </div>
+
+  <div class="error-case">
+    <div class="case-title">Case 2: Lithium Battery Packs Claimed as Power Banks (8504) vs. Batteries (8507)</div>
+    <div class="case-body">
+      An electronics distributor classified external battery packs under 8504.40 (static converters) arguing they performed voltage conversion. Customs reclassified to 8507.60 (lithium-ion accumulators/batteries) because the storage function was primary. In the US, this mattered: 8507.60 from China carries +25% Section 301 tariff; 8504.40 does not. The company owed USD $240,000 in back duties.
+    </div>
+    <div class="case-fix">If the product's primary purpose is storing and discharging electrical energy, it belongs in 8507. Conversion circuitry is incidental. Request a Binding Tariff Ruling before large shipments.</div>
+  </div>
+
+  <div class="error-case">
+    <div class="case-title">Case 3: Bamboo Cutting Board Classified as Wood (4419) Instead of Vegetable Materials (4601)</div>
+    <div class="case-body">
+      A kitchenware importer classified bamboo cutting boards under 4419 (tableware and kitchenware of wood) because bamboo "looks like wood." Customs reclassified to 4601 (plaiting materials of vegetable materials) because bamboo is botanically a grass, not a hardwood. The rate difference was 0% vs. 0% in Australia, but in the US the difference triggered a different AD/CVD investigation applicability.
+    </div>
+    <div class="case-fix">Bamboo ≠ wood. Always verify the botanical/material classification before applying a wood chapter heading. Request confirmation from a licensed customs broker.</div>
+  </div>
+
+  <div class="error-case">
+    <div class="case-title">Case 4: Protein Powder Declared as Food Supplement (2106) vs. Medicament (3004)</div>
+    <div class="case-body">
+      A sports nutrition importer classified whey protein powder under 3004 (medicaments) because the product label included health claims. Customs reclassified to 2106 (food preparations not elsewhere specified) because the product was not for treating or preventing disease and contained no active pharmaceutical ingredients. TGA regulatory concerns were raised, requiring additional compliance documentation.
+    </div>
+    <div class="case-fix">Medicament classification (Chapter 30) requires the product to be presented as treating/preventing disease AND contain a pharmacologically active ingredient. Sports supplements belong in 2106 regardless of health claims on packaging.</div>
+  </div>
+
+  <div class="error-case">
+    <div class="case-title">Case 5: Industrial Air Compressor Parts Claimed Under Parent Machine Code</div>
+    <div class="case-body">
+      A maintenance company imported replacement pistons and valves for industrial air compressors, classifying them under 8414 (air pumps, compressors) using the parent machine code. Customs reclassified to 8414.90 (parts) which attracted the same rate but required a separate customs entry. The error delayed clearance 3 days and triggered an audit of 6 prior shipments.
+    </div>
+    <div class="case-fix">Parts have their own subheadings (typically .90 under the parent heading). Never use the complete machine's code for spare parts — file a separate classification and verify with the tariff schedule's "parts and accessories" note for each chapter.</div>
+  </div>
+
+
+  <!-- Disclaimer -->
+  <div class="disclaimer">
+    <strong>Important Disclaimer:</strong> This reference guide is provided for general informational purposes only. Tariff rates, HS code classifications, and trade regulations are subject to frequent change. The information in this guide reflects data available at time of publication (2025) and may not reflect the most current rates, anti-dumping measures, safeguard tariffs, or bilateral/multilateral agreement concessions. This guide does not constitute legal or customs compliance advice. Always verify current rates with the relevant customs authority (Australian Border Force / ABCC, US CBP / USITC, China Customs / GACC) or a licensed customs broker before making importation or exportation decisions. Friday Lab accepts no liability for decisions made based on this guide.
+  </div>
+
+</div><!-- end .content -->
+
+<!-- Footer -->
+<div class="doc-footer">
+  <span>TariffMap 2025 Reference Guide &nbsp;·&nbsp; <strong>Friday Lab</strong> &nbsp;·&nbsp; fridaylab.io</span>
+  <span>For personal/business use · Not for redistribution · © 2025 Friday Lab</span>
+</div>
+
+</body>
+</html>
